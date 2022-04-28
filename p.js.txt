@@ -1,0 +1,37 @@
+import BlocknativeSdk from 'bnc-sdk'
+import { useState } from 'react'
+//import Web3 from 'web3'
+//import WebSocket from 'ws' // only neccessary in server environments
+
+// create options object
+export const Payment = () => {
+  const options = {
+    dappId: 'f9b31c32-5a50-4242-a716-7c98d6af9269',
+    networkId: 56,
+    //transactionHandlers: [handleTransactionEvent],
+    onerror: (error) => {console.log(error)} //optional, use to catch errors
+  }
+  const blocknative = new BlocknativeSdk(options)
+  
+  const address = '0xf4fa8d3fd76497d6af55a35cee2e1c5bc803574c'
+
+  const {
+    emitter, // emitter object to listen for status updates
+    details // initial account details which are useful for internal tracking: address
+  } = blocknative.account(address)
+
+ emitter.on("txPool", transaction => {
+    console.log("Transaction is pending")
+    console.log(transaction)
+})
+
+ emitter.on("txConfirmed", transaction =>{
+   console.log("Transaction is Confirmed")
+   console.log(transaction)
+ })
+  // initialize and connect to the api
+ 
+
+  return (
+    <div>hello</div>
+  )}
